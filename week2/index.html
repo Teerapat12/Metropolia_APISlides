@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smoke.js Testing</title>
+    <link rel="stylesheet" type="text/css" href="smoke/smoke.css">
+
+</head>
+<body>
+
+<button id="alert">Alert</button>
+<button id="confirm">Confirm</button>
+<button id="prompt">Prompt</button>
+<button id="quiz">Quiz</button>
+<button id="signal">Signal</button>
+
+<script src="./smoke/smoke.min.js"></script>
+
+<script>
+
+function onClickedAlert(){
+        smoke.alert("Can I ask you a question?", function(e){
+    }, {
+        ok: "Yep",
+        cancel: "Nope",
+    });
+}
+
+function onClickedConfirm(){
+    smoke.confirm("Are you sure?", function(e){
+        if (e){
+            smoke.alert("You clicked Yep!");
+        }else{
+            smoke.alert("You clicked Nope");
+        }
+    }, {
+        ok: "Yep",
+        cancel: "Nope",
+        classname: "custom-class",
+        reverseButtons: true
+    });
+}
+
+function onClickedPrompt(){
+    smoke.prompt("What's for dinner?", function(e){
+        if (e){
+            smoke.alert("Great! We are having "+e+"!");
+        }else{
+
+        }
+    }, {
+        ok: "Yes",
+        cancel: "No",
+        classname: "custom-class",
+        reverseButtons: true,
+        value: "existential dread"
+    });
+}
+
+function onClickedQuiz(){
+    smoke.quiz("Which is your favorite letter?", function(e){
+        if (e == "A"){
+            smoke.alert("So am I!");
+        }
+    }, {
+        button_1: "A",
+        button_2: "B",
+        button_3: "C",
+        button_4: "D",
+        button_cancel: "Nothing"
+    });
+}
+
+function onClickedSignal(){
+    smoke.signal("Congratulations! You have just one a free iPod Touch!", function(e){
+
+    }, {
+        duration: 3000,
+        classname: "custom-class"
+    });
+}
+
+document.getElementById("alert").addEventListener("click",onClickedAlert);
+document.getElementById("confirm").addEventListener("click",onClickedConfirm);
+document.getElementById("prompt").addEventListener("click",onClickedPrompt);
+document.getElementById("quiz").addEventListener("click",onClickedQuiz);
+document.getElementById("signal").addEventListener("click",onClickedSignal);
+
+
+</script>
+
+</body>
+</html>
