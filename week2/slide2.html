@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Title</title>
+    <title>Home Assignment 2 - JS Library</title>
     <meta charset="utf-8">
     <style>
       @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
@@ -62,9 +62,10 @@ class: center, middle
 # Overview
 
 1. "Framework-Agnostic Styled Alert System for JavaScript"
-2. Provide simpler ways to create show alert to user
+2. Provide simpler ways to show alert to user.
 3. Contains many type of Alert.
-4. Uses css animations and background (so there are no images or js animation code...so it's really lightweight).
+4. Uses css animations and background (so it's really lightweight).
+5. More information <a href="https://smoke-js.com">here</a>
 
 ---
 
@@ -150,18 +151,16 @@ Sample
 
 Code
 ```javascript
-smoke.prompt("What's for dinner?", function(e){
-	if (e){
-
-	}else{
+smoke.quiz("Which is your favorite?", function(e){
+	if (e == "A"){
 
 	}
 }, {
-	ok: "Yes",
-	cancel: "No",
-	classname: "custom-class",
-	reverseButtons: true,
-	value: "existential dread"
+	button_1: "A",
+	button_2: "B",
+	button_3: "C",
+	button_4: "D",
+	button_cancel: "Nothing"
 });
 ```
 Sample
@@ -173,18 +172,10 @@ Sample
 
 Code
 ```javascript
-smoke.prompt("What's for dinner?", function(e){
-	if (e){
-
-	}else{
-
-	}
+smoke.signal("Congratulations! You have just one a free iPod Touch!", function(e){
 }, {
-	ok: "Yes",
-	cancel: "No",
-	classname: "custom-class",
-	reverseButtons: true,
-	value: "existential dread"
+	duration: 3000,
+	classname: "custom-class"
 });
 ```
 Sample
@@ -196,10 +187,14 @@ Sample
 
 # Themes
 
-1.SmokeJs let you create your alert's style from scratch, but you can also choose to use Theme smokejs provides.
-2.Download Theme here: https://github.com/hxgf/smoke-themes
+1. SmokeJS also provides some themes that can be use.
+2. You can download it <a href="https://github.com/hxgf/smoke-themes">here.</a>
 
+---
 
+class: center, middle
+
+# Thank you
 
     </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">
