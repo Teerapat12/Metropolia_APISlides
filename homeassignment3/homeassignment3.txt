@@ -1,0 +1,20 @@
+HomeAssignment3: OAuth
+
+1.Done
+2.Done
+3.Done
+4.Done
+5.TODO: find way to upload code into the website
+6.It contains a button that let you authorize yourself using gmail. When clicked, the google oath window appear. Then if we choose the gmail and agree to terms then the website shows the list of our google drive files.
+7.I use the code to be the authorization for the music quiz game. Now with the code I am able to know when the user logged in with their google account. Not only that, I also can get their user name from the api, and use it as a user name for the music quiz up without user having to type their name.
+
+8a.OAuth is standard that is use for user to be able to use authorize into the system using their account from another reliable services (e.g. Google,Facebook).
+8b.It can be use to make sure that a specific user has permissions to do something. This also let services such as Facebook or Google to share some information about your user account to the website by user permitting it first.
+9.OAuth act as a middle man between the website and the user’s services. Once the user are authorizing, oauth jumps in and user will tell their password to oauth, not the website. The website will only able to identify the user by access token given back by the oauth. This way website doesn’t need to know the password of the third parties services but still able to know if the user really is the owner of the account or not.
+10.Spotify, or maybe Facebook/Google if Spotify doesn’t work as plan.
+
+
+Reference
+https://aaronparecki.com/oauth-2-simplified/
+
+https://stormpath.com/blog/what-the-heck-is-oauth
