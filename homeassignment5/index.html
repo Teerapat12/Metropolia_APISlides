@@ -1,0 +1,128 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Page Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+
+        <div>
+            Player Board
+        </div>
+        
+        <div id="chatboard">
+            Text: <input id="inputText"></input>
+            <button id="btn">Send</button>
+        </div>
+
+        <script
+        src="http://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+        <script src="pb2_client.js"></script>
+
+        <script>
+            const pb2 = new PB2('https://pb2-2018.jelastic.metropolia.fi/', 'teerapat_type_racer_159753');
+            const id = Math.random().toString(36).substring(7);
+            let isHost = true;
+            let playerList = [{
+                            name:"MysteryTyper0",
+                            id
+                }]; // Your self
+
+            function init(){
+                
+
+
+                pb2.sendJson({
+                    type:"joining",
+                    id
+                });
+            }
+
+            pb2.sendJson({
+                    message:$("#inputText").val()
+                });
+
+            pb2.setReceiver(function(data) {
+                const receivedJson = data.json;
+                console.log(data);
+                if(receivedJson.type=="joining" && !data.me){
+                    onNewPlayerEnter(receivedJson);              
+                }    
+                else if(receivedJson.type=="updateGame" && receivedJson.toId== id){
+
+                    if(receivedJson.subtype=="playerJoining")
+                        setupGame(receivedJson);
+                }
+                else if(receivedJson.type=="quitting"){
+                    removePlayerFromList(receivedJson.id);
+                }
+
+                console.log(playerList);
+                console.log(isHost);
+            });
+
+            function removePlayerFromList(id){                
+                for(var i = 0; i < playerList.length; i++) {
+                    if(playerList[i].id == id) {
+                        playerList.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+
+            function onNewPlayerEnter(receivedJson){
+                // alert("A mystery typer has just entered!");
+                playerList.push({
+                            name:"MysteryTyper"+playerList.length,
+                            id:receivedJson.id
+                });
+                
+                if(isHost){
+                    pb2.sendJson({
+                        toId:receivedJson.id,
+                        type:"updateGame",
+                        subtype:"playerJoining",
+                        playerList:playerList
+                    });
+                }
+            }
+
+          
+            
+            function onThisPlayerLeaving(){
+                pb2.sendJson({
+                    type:"quitting",
+                    id
+                    });
+            }
+
+            function setupGame(receivedJson){
+                playerList = receivedJson.playerList;
+                isHost = false;
+                console.log(playerList);
+            }
+
+            $("#btn").click(function(){
+                console.log($("#inputText").val());
+                pb2.sendJson({
+                    message:$("#inputText").val()
+                });
+            })
+
+            init();
+
+            window.onbeforeunload = function (e) {
+                console.log("LEAVING");
+                onThisPlayerLeaving();
+            }
+
+            
+
+        </script>
+    </body>
+</html>
