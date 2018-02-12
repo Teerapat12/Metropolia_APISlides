@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button id="prevButton"><--</button>
+    <button id="nextButton">--></button>
+    <div id="imageContainer"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/slideshow.js"></script>
+
+    <script>
+
+      const token = '238734a8dddddc4f46e5adcbba836706'; // learn how to obtain it below
+      const singer = '24k+magic';
+      const url = ' https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=7db2efd67d68885b24bd38064230f09f&tags=singer&text='+singer+'&sort=relevance&accuracy=1&content_type=1&format=json&nojsoncallback=1'
+      //const url 'https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=63e1707c6f7e77928963f47182dcaf87&user_id=7522188%40N02&format=json&nojsoncallback=1'
+      function onLoadedPhotoObj(img){
+        const imgUrl = 'https://c1.staticflickr.com/'+img.farm+'/'+img.server+'/'+img.id+'_'+img.secret+'_c.jpg';
+        addImage(imgUrl);
+      }
+
+      $.ajax({
+        url: url,
+        dataType: 'json',
+        type: 'GET',
+        data: {access_token: token},
+        success: function(data){
+          data.photos.photo.forEach(onLoadedPhotoObj);
+        },
+        error: function(data){
+          console.log(data); // send the error notifications to console
+        }
+      });
+    </script>
+</body>
+</html>

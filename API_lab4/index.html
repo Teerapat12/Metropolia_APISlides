@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>API Lab4 - GeoNames API!</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div id="slideshow">
+        <div id="imageContainer"></div>
+        <button id="prevButton"><--</button>
+        <button id="nextButton">--></button>
+    </div>
+
+    <form id='searchForm'>
+       Search: <input id='searchTextField'/>
+        <input id='qSubmitButton' type='submit'/>
+        <button id='wikiSearchButton' type='button'>WikiSearch</button>
+        <button id='imageSearch' type='button'>ImageSearch</button>
+    </form>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="js/map.js"></script>
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJrbhTGTGoWr7gI24NxsWjKRsIwYFik0w&callback=initMap">
+    </script>
+
+    <script src="js/geonames.js"></script>
+    <script src="js/slideshow.js"></script>
+
+    <script src="js/imageSearch.js"></script>
+
+    
+
+</body>
+
+</html>
