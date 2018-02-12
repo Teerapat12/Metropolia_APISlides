@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Page Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+        
+        <div id="chatboard">
+            Text: <input id="inputText"></input>
+            <button id="btn">Send</button>
+        </div>
+
+        <script
+        src="http://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+        <script src="pb2_client.js"></script>
+
+        <script>
+            const pb2 = new PB2('https://pb2-2018.jelastic.metropolia.fi/', 'teerapat_app_5555');
+
+            const msg = {};
+            msg.hello = 'world';
+            pb2.sendJson(msg);
+
+            pb2.setReceiver(function(data) {
+                console.log('socket.on message received: ',data);
+                const receivedJson = data.json;
+                console.log(receivedJson);
+                if(receivedJson.message){
+                    $("#chatboard").append(`<h3>${receivedJson.message}</h3>`);
+                }
+                else if(receivedJson.quitting){
+                    alert("Someone is exiting the page. Byee");
+                }
+            });
+
+            $("#btn").click(function(){
+                console.log($("#inputText").val());
+                pb2.sendJson({
+                    message:$("#inputText").val()
+                });
+            })
+
+            window.onbeforeunload = function (e) {
+                pb2.sendJson({
+                    quitting:true
+                });
+            }
+        </script>
+    </body>
+</html>
