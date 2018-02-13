@@ -41,6 +41,9 @@ function onNewPlayerEnter(receivedJson){
 
 function updatePlayerList(){
   $("#playerBoard").html ('Player Board');
+
+  playerList.sort(function(a,b) {return (a.score > b.score) ? -1 : ((b.score > a.score) ? 1 : 0);} );
+
   for(let i=0;i<playerList.length;i++){
     let isCurrent = '';
     if(playerList[i].id===id)
@@ -56,8 +59,6 @@ function updatePlayerList(){
       + img
       +'</div>');
   }
-
-
 
   $("#playerBoard").append('<button id="startBtn">Start</button>');
 }

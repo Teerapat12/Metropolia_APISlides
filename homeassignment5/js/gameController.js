@@ -5,19 +5,22 @@ const score = {};
 
 // Add Listener to Start Object
 $("#playerBoard").on('click','#startBtn',function(){
-  pb2.sendJson({
-    type: "startGame",
-  });
-
+  if(isHost)
+    pb2.sendJson({
+      type: "startGame",
+    });
+  else
+    alert("Only host can start game!");
   onGameStart();
 });
 
 $("#gameBoard").on('mouseover','.tile',function(e){
-  pb2.sendJson({
-    type: "tileClicked",
-    color:id,
-    tileId:e.target.id
-  });
+  if(gameStarted)
+    pb2.sendJson({
+      type: "tileClicked",
+      color:id,
+      tileId:e.target.id
+    });
 })
 
 function onGameStart(){
@@ -26,7 +29,7 @@ function onGameStart(){
 
 
     gameStarted = true;
-
+    $("#gameBoard").empty();
     for(let i=0;i<=1000;i++){
       $("#gameBoard").append('<div id="tile'+i+'" class="tile"></div>');
       tileColorLog.push('#ffffff');
@@ -51,8 +54,7 @@ function onGameEnd(){
   }
   console.log(playerList);
   alert(winPlayer.name+" won with "+winPlayer.score+" tiles!");
-  alert("Closing the browser. See you later.");
-  // window.close();
+  gameStarted = false;
 }
 
 function updateTile(tileId,color){
