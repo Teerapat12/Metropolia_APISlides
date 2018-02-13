@@ -6,8 +6,8 @@
 'use strict';
 
 /* global $ pb2 playerList isHost*/
-
-const pb2 = new PB2('https://pb2-2018.jelastic.metropolia.fi/', 'teerapat_type_racer_159753');
+const pb2Url = 'localhost:3000'
+const pb2 = new PB2(pb2Url, 'teerapat_type_racer_421');
 const id = '#'+Math.floor(Math.random()*16777215).toString(16);  //The id is also color in hex.
 
 let isHost = true;
@@ -57,13 +57,11 @@ pb2.setReceiver(function(data) {
     onNewPlayerEnter(receivedJson);
   } else if (receivedJson.type==='updateGame' && receivedJson.toId=== id) {
     if (receivedJson.subtype==='playerJoining') {
-      console.log("SETUP HERE");
       setupGame(receivedJson);
 
       if(receivedJson.gameStarted){
         // Game already started. Also have to setup the game board.
         onGameStart();
-        console.log(receivedJson.tileColorLog)
         loadTilesFromLog(receivedJson.tileColorLog);
       }
     }
@@ -74,9 +72,10 @@ pb2.setReceiver(function(data) {
     window.close();
   } else if(receivedJson.type==='startGame') {
     onGameStart();
+  }else if(receivedJson.type==='gameEnd') {
+    onGameEnd();
   }
   else if(receivedJson.type==='tileClicked'){
-    console.log(receivedJson);
     updateTile(receivedJson.tileId,receivedJson.color)
   }
   updatePlayerList();

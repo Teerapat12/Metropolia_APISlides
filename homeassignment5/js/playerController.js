@@ -25,7 +25,6 @@ function onNewPlayerEnter(receivedJson){
     isHost:false,
     score:0
   });
-  console.log(receivedJson);
   if(isHost){
     pb2.sendJson({
       toId:receivedJson.id,
@@ -41,8 +40,6 @@ function onNewPlayerEnter(receivedJson){
 }
 
 function updatePlayerList(){
-  console.log("UPdating player list");
-  console.log(playerList);
   $("#playerBoard").html ('Player Board');
   for(let i=0;i<playerList.length;i++){
     let isCurrent = '';
