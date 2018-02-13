@@ -31,14 +31,14 @@ function onImageSearch({lat,lng}) {
 
 // NOTE: with JSONP, use this exact method name, defined by the API,
 // no need to define the success function
+// function onFlickrApi(data) {
 function jsonFlickrApi(data) {
   console.log('results: ', data);
-  data.photos.photo.forEach(imageObj=>imageToMarkerAdapter(imageObj));
-
+  data.photos.photo.forEach((imageObj)=>imageToMarkerAdapter(imageObj));
   fitMarkerToMap(imageMarkers);
 }
 
-function imageToMarkerAdapter(imageObj){
+function imageToMarkerAdapter(imageObj) {
   console.log(imageObj);
   const {title, latitude, longitude, url_c} = imageObj;
   const pos = {

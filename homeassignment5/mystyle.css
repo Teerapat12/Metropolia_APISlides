@@ -1,0 +1,37 @@
+#playerBoard{
+    height:100%;
+    width:200px;
+    border-right:1px black dashed;
+    padding:5px;
+    display:inline-block;
+}
+
+.playerItem {
+    width:190px;
+    height:60px;
+    border:1px black solid;
+    padding:2px;
+    margin-bottom:10px;
+}
+
+.activeItem{
+    border:2px black solid;
+}
+
+#gameBoard{
+    width:708px;
+    height:594px;
+    overflow:hidden;
+    display:inline-block;
+
+    position:absolute;
+    left:240px;
+}
+
+.tile{
+    border-radius:10px;
+    border:1px black solid;
+    height:20px;
+    width:20px;
+    display:inline-block;
+}
