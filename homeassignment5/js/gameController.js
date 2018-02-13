@@ -5,13 +5,14 @@ const score = {};
 
 // Add Listener to Start Object
 $("#playerBoard").on('click','#startBtn',function(){
-  if(isHost)
+  if(isHost) {
     pb2.sendJson({
       type: "startGame",
     });
+    onGameStart();
+  }
   else
     alert("Only host can start game!");
-  onGameStart();
 });
 
 $("#gameBoard").on('mouseover','.tile',function(e){
