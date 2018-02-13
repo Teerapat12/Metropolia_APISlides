@@ -6,7 +6,8 @@
 'use strict';
 
 /* global $ pb2 playerList isHost*/
-const pb2Url = 'localhost:3000'
+// const pb2Url = 'localhost:3000' //For locally hosted websocket server
+const pb2Url = 'https://pb2-2018.jelastic.metropolia.fi/'
 const pb2 = new PB2(pb2Url, 'teerapat_type_racer_421');
 const id = '#'+Math.floor(Math.random()*16777215).toString(16);  //The id is also color in hex.
 
@@ -32,7 +33,6 @@ function init(){
 
 
 $('#btn').click(function() {
-  console.log($('#inputText').val());
   pb2.sendJson({
     message: $('#inputText').val(),
   });
@@ -52,7 +52,7 @@ function setupGame(receivedJson) {
 
 pb2.setReceiver(function(data) {
   const receivedJson = data.json;
-  console.log(data);
+  // console.log(data); //For debugging only
   if (receivedJson.type==='joining' && !data.me) {
     onNewPlayerEnter(receivedJson);
   } else if (receivedJson.type==='updateGame' && receivedJson.toId=== id) {

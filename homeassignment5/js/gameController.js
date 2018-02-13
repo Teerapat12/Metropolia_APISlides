@@ -45,13 +45,14 @@ function onGameStart(){
 function onGameEnd(){
   // Find the winner.
   let winPlayer = playerList[0];
-  for(let i=0; i<playerList; i++){
+  for(let i=0; i<playerList.length; i++){
     const challenger = playerList[i];
     if(challenger.score>winPlayer.score) winPlayer = challenger
   }
+  console.log(playerList);
   alert(winPlayer.name+" won with "+winPlayer.score+" tiles!");
   alert("Closing the browser. See you later.");
-  window.close();
+  // window.close();
 }
 
 function updateTile(tileId,color){
