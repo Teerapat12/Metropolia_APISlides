@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+      .center img{
+        width: 75%;
+      }
+
+      .small img{
+        border: #000000 1px solid;
+
+        width: auto;
+        max-width: 400px;
+        height: auto;
+        max-height: 500px;
+      }
+
+
+
+      .half img{
+        border: #000000 1px solid;
+        float:left;
+        width: auto;
+        max-width: 45%;
+        height: auto;
+        max-height: 500px;
+        margin:7px;
+      }
+
+      .marginTopBot{
+            margin-left:100px;
+      }
+
+      .smallText{
+          font-size:0.8em;
+      }
+
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Push API
+
+---
+
+# Agenda
+
+1. Project Overview
+2. Push API
+3. How it can be combine with the project
+4. Use Cases
+5. Status of Specification
+
+---
+
+# Overview
+
+1. Music Quiz
+2. Let user guess the artist of the song playing.
+3. The song is given by spotify api from tracks that user listen the most.
+4. Right now only able to play in single player.
+
+
+---
+
+# Push API
+
+1. Enable sending of a push message via a push service
+2. Server can send data to client without waiting for client to ask first.
+3. Make ream time application more efficient.
+
+---
+
+
+# How it can be use with Music Quiz
+
+1. Right now the music quiz can only be play as one player.
+2. Open the possibilities for multi-player interaction in real-time.
+
+.center[![Center-aligned image](https://raw.githubusercontent.com/Teerapat12/RemarkTest/master/Screen%20Shot%202561-01-15%20at%209.37.51%20PM.png)]
+
+
+
+---
+
+# Use Cases
+
+1. User race to answer who is the singer of the song. The fastest win.
+2. Push API to update number of player playing in real-time so that user get the idea of how many people playing the game now.
+3. Challenging system. You can challenge your friend to play with you and the challenge will pop up to the challenged user in real time.
+
+---
+
+
+# How in more details
+
+1. Alert other player in session when one of the players answer the question correctly.
+2. First the ansering client send request to server.
+3. Then server push this message to all other client that are playing with the answering player.
+4. This way client doesn't have to continuously ask the server about the update.
+
+
+---
+
+# Specification Status
+
+1. The status now is published as a Working Draft
+2. Intended to become a W3C Recommendation
+
+---
+
+class: center, middle
+
+#Thank you
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+      //44bb67c6beb0726a9de2ef7d1abd4cb96891c953
+    </script>
+  </body>
+</html>
