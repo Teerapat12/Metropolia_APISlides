@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Spotify Music Quiz</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .center img{
+        width: 75%;
+      }
+      .small img{
+        border: #000000 1px solid;
+        width: auto;
+        max-width: 400px;
+        height: auto;
+        max-height: 500px;
+      }
+      .half img{
+        border: #000000 1px solid;
+        float:left;
+        width: auto;
+        max-width: 45%;
+        height: auto;
+        max-height: 500px;
+        margin:7px;
+      }
+      .marginTopBot{
+            margin-left:100px;
+      }
+      .smallText{
+          font-size:0.8em;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Spotify Music Quiz
+
+---
+
+# Agenda
+
+1. What is it?
+2. How to play?
+3. Why?
+4. How it work?
+5. Future Work
+6. Demo
+
+---
+
+# Music Quiz
+
+* Games on website that let the user guest the "artist" of the songs.
+* Answer as fast as possible without making a mistakes to get higher score. 
+* Explore new music and find your new favorite songs!
+
+
+.center[![Center-aligned image](https://raw.githubusercontent.com/Teerapat12/Metropolia_APISlides/master/homeassignment6/musicquiz_screenshot.png)]
+
+---
+
+class: center, middle
+
+# How to play?
+
+---
+
+# How to play?
+
+* First user login with their Spotify account.
+
+---
+
+# Play the game
+
+* Then the game randomly select a song and artists that user are familiar with (based on Spotify).
+* The user then have to listen to the song and answer who is the artist within 30 seconds.
+---
+
+# Continue
+
+* Answer correctly to go to the next stage.
+* The game then gets harder by selecting songs that you might not have heard before.
+
+---
+
+# Game ends
+
+* The game ends if you can not answer the artist in time or answer wrong artist.
+* The site shows the final score and you cna press 'retry' button to try again.
+
+---
+
+
+# Why?
+
+* Songs is personalize based on each user.
+* Fast way to discover new songs
+* Become more familiar of artists and songs.
+* Fun! 
+
+.center[![Center-aligned image](https://raw.githubusercontent.com/Teerapat12/Metropolia_APISlides/master/homeassignment6/musicquiz_screenshot2.png)]
+
+---
+
+class: center, middle
+
+# How it works?
+
+---
+
+# Authentication
+
+* Need to authenticate user first through Spotify OAuth
+```javascript
+function onClickSpotifyLogin() {
+  const scopes = 'user-read-private user-read-email user-top-read user-follow-read';
+
+  const spotifyAuthUrl = 'https://accounts.spotify.com/authorize/?client_id='
+    + client_id + '&response_type=token&redirect_uri='
+    + redirect_uri + '&state=34fFs29kd09'
+    + (scopes ? '&scope=' + encodeURIComponent(scopes) : '');
+
+  $(location).attr('href', spotifyAuthUrl);
+}
+```
+* Access token has expired time. If expired then user need to re-login.
+
+---
+
+
+# Getting user's favourite songs
+
+* Use <a href="https://github.com/JMPerez/spotify-web-api-js">Spotify-Web-Api-js</a> for calling APi to Spotify.
+* Need to set access token first
+```javascript
+spotifyApi.setAccessToken(access_token);
+```
+* Then search the uesr top tracks.
+```javascript
+spotifyApi.getMyTopTracks({limit:100})
+        .then((data)=> {
+            this.musics = data.items;
+            resolve(data)
+          },
+          //On Error
+          (err)=> reject(err))
+```
+
+---
+
+# Selecting songs.
+
+* Randomly select three songs for user to answer
+* Spotify doesn't provide us the artist picture for us in this api. So we will use last.fm api to get artist image.
+```javascript
+this.getArtistPicture = function(artistName,song){
+	const url = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist="+artistName+"&api_key=d07d1afe053251f8e5e27f323593d24d&format=json"
+    $.get({
+      url: url,
+      dataType: 'json',
+      async:false,
+    })
+      .done(function(data){
+        const url = data.artist.image[3]["#text"];
+        song.singerPicture = url;
+      })
+      .catch(function(err){console.log(err)})
+  }
+```
+---
+
+# Getting new songs
+
+* Get new songs based on songs that user has played.
+
+```javascript
+this.addNewSongs = function(tracks){
+const query = {
+      seed_tracks:tracks,
+    }
+
+spotifyApi.getRecommendations(query)
+        .then((data)=> {
+            this.musics = this.musics.concat(data.tracks);
+            resolve(data)
+          },
+          //On Error
+          (err)=> reject(err))
+}
+```
+
+---
+
+# Future Work
+
+* Multiplayer using socket.io
+* Challenge to friends via Push API
+* Play with your friend's tracklist instead of yours
+
+
+
+
+---
+
+class: center, middle
+
+#Thank you
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+      //44bb67c6beb0726a9de2ef7d1abd4cb96891c953
+    </script>
+  </body>
+</html>
